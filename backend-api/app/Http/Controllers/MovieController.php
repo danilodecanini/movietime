@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
-    public function index(){
-        return response()->json([
-            ['id' => 1, 'name' => 'Lagoa Azul']
-        ]);
-    }
 
     public function discover()
     {
@@ -56,6 +51,25 @@ class MovieController extends Controller
 
         $data = new Movie();
         $data = $data->upcoming();
+
+        if(!$data)
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Some unknown error happened tying to get upcoming movies'
+            ], 404);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ]);
+
+    }
+
+    public function details(Request $request)
+    {
+        $movie_id = $request->movie_id;
+        $data = new Movie();
+        $data = $data->details($movie_id);
 
         if(!$data)
             return response()->json([

@@ -38,6 +38,7 @@ Route::prefix('movies')->group(function(){
     Route::get('discover', 'MovieController@discover');
     Route::get('top_rated', 'MovieController@top_rated');
     Route::get('upcoming', 'MovieController@upcoming');
+    Route::get('details/{movie_id}', 'MovieController@details');
 
 });
 

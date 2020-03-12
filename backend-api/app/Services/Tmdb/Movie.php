@@ -44,4 +44,12 @@ class Movie {
 
     }
 
+    public function details($movie_id)
+    {
+        $response = Http::get('https://api.themoviedb.org/3/movie/'. $movie_id . '?api_key=' . $this->api_key);
+
+        if($response->successful())
+            return $response->json();
+    }
+
 }
